@@ -3,10 +3,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateWeatherSummary } from '@/app/server/openAi';
 import { WeatherData } from '@/app/types/weatherApi';
+import ct from 'countries-and-timezones';
 
 // Function to generate the prompt based on weather data
 function generatePrompt(weatherData: WeatherData, cityName: string): string {
-  const { current } = weatherData;
+  const { current, lat, lon } = weatherData;
   const name = cityName || weatherData.timezone || 'your location';
   const description = current.weather[0]?.description || 'No description';
   const temperature = current.temp;
@@ -17,8 +18,19 @@ function generatePrompt(weatherData: WeatherData, cityName: string): string {
 
   const windDirection = getWindDirection(windDeg);
 
-  return `Write a very short, friendly yet professional weather summary for ${name}.
+  const timezoneData = ct.getTimezone(cityName);
 
+  const timezone = timezoneData ? timezoneData.name : 'UTC';
+
+  // Get the current time in the local timezone using native Date
+  const localTime = new Date(current.dt * 1000).toLocaleString('en-US', {
+    timeZone: timezone,
+    dateStyle: 'full',
+    timeStyle: 'short',
+  });
+
+  return `Write a very short, friendly yet professional weather summary for ${name}.
+  Time zone ${localTime}
   Current conditions: ${description}.
   Temperature: ${temperature}°C (feels like ${feelsLike}°C).
   Humidity: ${humidity}%.
