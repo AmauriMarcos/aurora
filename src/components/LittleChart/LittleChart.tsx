@@ -115,7 +115,7 @@ const LittleChart: React.FC<LittleChartProps> = ({ location }) => {
   }));
 
   return (
-    <div className="w-full m-auto text-white mt-[2rem]">
+    <div className="w-full m-auto text-white mt-[2rem] mb-0">
       <TemperatureChart data={temperatureData} />
     </div>
   );

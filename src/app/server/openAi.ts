@@ -7,8 +7,7 @@ if (!process.env.OPENAI_API_KEY) {
     throw new Error('Missing OpenAI API key');
   }
   
-  console.log('OpenAI API Key:', process.env.OPENAI_API_KEY ? 'Exists' : 'Not Found');
-  
+
   // Initialize the OpenAI client
   export const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
