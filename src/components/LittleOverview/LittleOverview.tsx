@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { SkeletonDemo } from './SkeletonOverview';
 
 interface LittleOverviewProps {
   weatherData: any;
@@ -41,8 +42,11 @@ const LittleOverview: React.FC<LittleOverviewProps> = ({ weatherData, cityName }
     }
   }, [weatherData]);
 
+  console.log('LittleOverview isLoading:', isLoading);
+
   if (isLoading) {
-    return <div>Loading weather summary...</div>;
+    console.log('Rendering SkeletonDemo');
+    return <SkeletonDemo />;
   }
 
   return (
