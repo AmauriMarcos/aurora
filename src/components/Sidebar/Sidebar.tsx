@@ -5,6 +5,8 @@ import AirPollution from "../AirPollution/AirPollution";
 import { useQuery } from "@tanstack/react-query";
 import { fetchWeatherInfoOneCall } from "@/app/server/weatherApi"; // Ensure this function is updated
 import * as Geocode from "react-geocode";
+import LittleChart from "../LittleChart/LittleChart";
+import LittleOverview from "../LittleOverview/LittleOverview";
 
 interface SidebarProps {
   setWeatherCondition: (condition: string | null) => void; // Define the prop type
@@ -77,9 +79,9 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition }) => {
       console.error("Error fetching location:", error);
     }
   };
-console.log(data)
+
   return (
-    <div className="flex flex-col gap-[5rem] p-4 ">
+    <div className="flex flex-col gap-[3rem] p-4 ">
       <Search setText={(e) => setText(e.target.value)} onSubmit={handleSubmit} />
       {data && data.current && (
         <Temperature
@@ -90,7 +92,9 @@ console.log(data)
           windDeg={data.current.wind_deg}
         />
       )}
-      <AirPollution />
+      <AirPollution location={location}/>
+      <LittleChart location={location}/>
+      <LittleOverview location={location}/>
     </div>
   );
 };
