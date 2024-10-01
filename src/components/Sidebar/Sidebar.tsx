@@ -1,4 +1,3 @@
-"use client";
 import Search from "../Search/Search";
 import React, { useEffect, useState } from "react";
 import Temperature from "../Temperature/Temperature";
@@ -7,7 +6,11 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchWeatherInfoOneCall } from "@/app/server/weatherApi"; // Ensure this function is updated
 import * as Geocode from "react-geocode";
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  setWeatherCondition: (condition: string | null) => void; // Define the prop type
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition }) => {
   const [text, setText] = useState("");
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null);
 
@@ -35,14 +38,22 @@ const Sidebar: React.FC = () => {
       console.error("Geolocation is not supported by this browser.");
     }
   }, []);
+
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["weather", location], // Include location to invalidate the query when it changes
+    queryKey: ["weather", location],
     queryFn: () => {
       if (!location) return Promise.resolve(null);
-      return fetchWeatherInfoOneCall(location); // Call the updated function
+      return fetchWeatherInfoOneCall(location);
     },
     enabled: !!location, // Only run the query if location is defined
   });
+
+  useEffect(() => {
+    if (data && data.current && data.current.weather.length > 0) {
+      // Check if weather data exists
+      setWeatherCondition(data.current.weather[0].main.toLowerCase()); // Update the background condition
+    }
+  }, [data, setWeatherCondition]); // Depend on data
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -59,7 +70,6 @@ const Sidebar: React.FC = () => {
       if (response.results.length > 0) {
         const { lat, lng } = response.results[0].geometry.location;
         setLocation({ lat, lng });
-        console.log(`Latitude: ${lat}, Longitude: ${lng}`);
       } else {
         console.error("No results found for the provided address.");
       }
@@ -67,23 +77,19 @@ const Sidebar: React.FC = () => {
       console.error("Error fetching location:", error);
     }
   };
-
+console.log(data)
   return (
     <div className="flex flex-col gap-[5rem] p-4 ">
-      <Search
-        setText={(e) => setText(e.target.value)}
-        onSubmit={handleSubmit}
-      />
-      {data &&
-        data.current && ( // Ensure data.current exists
-          <Temperature
-            temperature={data.current.temp}
-            feelsLike={data.current.feels_like}
-            humidity={data.current.humidity}
-            windSpeed={data.current.wind_speed}
-            windDeg={data.current.wind_deg}
-          />
-        )}
+      <Search setText={(e) => setText(e.target.value)} onSubmit={handleSubmit} />
+      {data && data.current && (
+        <Temperature
+          temperature={data.current.temp}
+          feelsLike={data.current.feels_like}
+          humidity={data.current.humidity}
+          windSpeed={data.current.wind_speed}
+          windDeg={data.current.wind_deg}
+        />
+      )}
       <AirPollution />
     </div>
   );

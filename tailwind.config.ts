@@ -11,9 +11,10 @@ const config: Config = {
   	extend: {
 		backgroundImage: {
 			'storm': "url('/storm.jpg')",
-			'cloudy': "url('/cloudy.jpg')",
-			'rainny': "url('/rainny.jpg')",
+			'clouds': "url('/cloudy.jpg')",
+			'rain': "url('/rainny.jpg')",
 			'sunny': "url('/sunny4.jpg')",
+			'clear': "url('/Clear.jpg')",
 		  },
   		colors: {
   			background: 'hsl(var(--background))',
