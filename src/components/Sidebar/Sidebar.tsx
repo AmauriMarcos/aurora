@@ -13,8 +13,10 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition }) => {
-  const [text, setText] = useState("");
-  const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [inputValue, setInputValue] = useState("");
+  const [location, setLocation] = useState<{ lat: number; lng: number } | null>(
+    null
+  );
   const [cityName, setCityName] = useState<string>("");
 
   // Define the AddressComponent interface
@@ -25,24 +27,27 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition }) => {
   }
 
   // Function to get country code from latitude and longitude
-async function getCountryCode(latitude: number, longitude: number): Promise<string | null> {
-  try {
-    const response = await Geocode.fromLatLng(latitude, longitude);
-    if (response.results.length > 0) {
-      const addressComponents = response.results[0].address_components as AddressComponent[];
-      const countryComponent = addressComponents.find((component: AddressComponent) =>
-        component.types.includes("country")
-      );
-      if (countryComponent) {
-        return countryComponent.short_name.toLowerCase(); // Returns country code like 'rs', 'us', etc.
+  async function getCountryCode(
+    latitude: number,
+    longitude: number
+  ): Promise<string | null> {
+    try {
+      const response = await Geocode.fromLatLng(latitude, longitude);
+      if (response.results.length > 0) {
+        const addressComponents = response.results[0]
+          .address_components as AddressComponent[];
+        const countryComponent = addressComponents.find(
+          (component: AddressComponent) => component.types.includes("country")
+        );
+        if (countryComponent) {
+          return countryComponent.short_name.toLowerCase(); // Returns country code like 'rs', 'us', etc.
+        }
       }
+    } catch (error) {
+      console.error("Error getting country code:", error);
     }
-  } catch (error) {
-    console.error("Error getting country code:", error);
+    return null;
   }
-  return null;
-}
-
 
   // Set up Geocode API key on component mount
   useEffect(() => {
@@ -65,14 +70,19 @@ async function getCountryCode(latitude: number, longitude: number): Promise<stri
             const response = await Geocode.fromLatLng(latitude, longitude);
 
             if (response.results.length > 0) {
-              const addressComponents = response.results[0].address_components as AddressComponent[];
-              const cityComponent = addressComponents.find((component: AddressComponent) =>
-                component.types.includes("locality") || component.types.includes("postal_town")
+              const addressComponents = response.results[0]
+                .address_components as AddressComponent[];
+              const cityComponent = addressComponents.find(
+                (component: AddressComponent) =>
+                  component.types.includes("locality") ||
+                  component.types.includes("postal_town")
               );
               if (cityComponent) {
                 setCityName(cityComponent.long_name);
+                setInputValue(cityComponent.long_name);
               } else {
                 setCityName("Your location");
+                setInputValue("Your location");
               }
             }
           } catch (error) {
@@ -107,20 +117,25 @@ async function getCountryCode(latitude: number, longitude: number): Promise<stri
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await Geocode.fromAddress(text);
+      const response = await Geocode.fromAddress(inputValue);
       if (response.results.length > 0) {
         const { lat, lng } = response.results[0].geometry.location;
         setLocation({ lat, lng });
 
         // Update city name from the search input
-        const addressComponents = response.results[0].address_components as AddressComponent[];
-        const cityComponent = addressComponents.find((component: AddressComponent) =>
-          component.types.includes("locality") || component.types.includes("postal_town")
+        const addressComponents = response.results[0]
+          .address_components as AddressComponent[];
+        const cityComponent = addressComponents.find(
+          (component: AddressComponent) =>
+            component.types.includes("locality") ||
+            component.types.includes("postal_town")
         );
         if (cityComponent) {
           setCityName(cityComponent.long_name);
+          setInputValue(cityComponent.long_name);
         } else {
-          setCityName(text); // Fallback to user input
+          setCityName(inputValue);
+          setInputValue(inputValue);
         }
       } else {
         console.error("No results found for the provided address.");
@@ -142,7 +157,13 @@ async function getCountryCode(latitude: number, longitude: number): Promise<stri
 
   return (
     <div className="flex flex-col gap-0 p-4 h-full">
-      <Search setText={(e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value)} onSubmit={handleSubmit} />
+      <Search
+        inputValue={inputValue}
+        setInputValue={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setInputValue(e.target.value)
+        }
+        onSubmit={handleSubmit}
+      />
       {data.current && (
         <Temperature
           temperature={data.current.temp}

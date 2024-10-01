@@ -42,10 +42,8 @@ const LittleOverview: React.FC<LittleOverviewProps> = ({ weatherData, cityName }
     }
   }, [weatherData]);
 
-  console.log('LittleOverview isLoading:', isLoading);
 
   if (isLoading) {
-    console.log('Rendering SkeletonDemo');
     return <SkeletonDemo />;
   }
 
