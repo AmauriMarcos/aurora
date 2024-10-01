@@ -10,9 +10,10 @@ import LittleOverview from "../LittleOverview/LittleOverview";
 
 interface SidebarProps {
   setWeatherCondition: (condition: string | null) => void;
+  setWeatherData: (data: any) => void; 
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition }) => {
+const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }) => {
   const [inputValue, setInputValue] = useState("");
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(
     null
@@ -111,6 +112,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition }) => {
   useEffect(() => {
     if (data && data.current && data.current.weather.length > 0) {
       setWeatherCondition(data.current.weather[0].main.toLowerCase());
+      setWeatherData(data);
     }
   }, [data, setWeatherCondition]);
 
@@ -153,7 +155,6 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition }) => {
     return <div>Error fetching weather data</div>;
   }
 
-  console.log(data);
 
   return (
     <div className="flex flex-col gap-0 p-4 h-full">

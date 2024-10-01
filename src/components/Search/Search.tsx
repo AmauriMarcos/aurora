@@ -15,7 +15,7 @@ const Search: React.FC<SearchProps> = ({ inputValue, setInputValue, onSubmit }) 
   return (
     <form
       onSubmit={onSubmit}
-      className="flex items-center border-b border-solid border-slate-300"
+      className="flex items-center border-b border-solid border-slate-300 mb-[2rem]"
     >
       <TemperatureIcon size={23} />
       <Input

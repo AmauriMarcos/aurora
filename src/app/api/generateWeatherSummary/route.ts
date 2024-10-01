@@ -19,12 +19,12 @@ function generatePrompt(weatherData: WeatherData, cityName: string): string {
 
   return `Write a very short, friendly yet professional weather summary for ${name}.
 
-Current conditions: ${description}.
-Temperature: ${temperature}°C (feels like ${feelsLike}°C).
-Humidity: ${humidity}%.
-Wind: ${windSpeed} m/s from the ${windDirection}.
+  Current conditions: ${description}.
+  Temperature: ${temperature}°C (feels like ${feelsLike}°C).
+  Humidity: ${humidity}%.
+  Wind: ${windSpeed} m/s from the ${windDirection}.
 
-The summary should be conversational and easy to understand.`;
+  The summary should be conversational and easy to understand.`;
 }
 
 // Helper function to convert wind degrees to compass direction
