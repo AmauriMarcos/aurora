@@ -49,8 +49,8 @@ export default function Home() {
         backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: '100vh',
-        color: 'rgba(255, 255, 255, 0.9)' // Adjust text color for visibility
+        color: 'rgba(255, 255, 255, 0.9)', // Adjust text color for visibility
+        minHeight: '100vh'
       }}
       className="grid grid-cols-[280px_1fr]"
     >

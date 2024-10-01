@@ -26,7 +26,7 @@ const Temperature: React.FC<TemperatureProps> = ({
   const windSpeedKmh = (windSpeed * 3.6).toFixed(1);
 
   return (
-    <div className="flex flex-col gap-0">
+    <div className="flex flex-col gap-0 my-[2rem]">
       <div className="flex  justify-between items-center h-[50px]">
         <h1 className="text-[4rem]">{Math.round(temperature)}&deg;</h1>
         <div className="flex items-center">
