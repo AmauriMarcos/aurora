@@ -84,7 +84,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
   });
 
   useEffect(() => {
-    if (data && data.current && Array.isArray(data.current.weather) && data.current.weather.length > 0) {
+    if (data && data.current && Array.isArray(data.current.weather) && data.current.weather?.length > 0) {
       setWeatherCondition(data.current.weather[0].main.toLowerCase());
       setWeatherData(data);
     }

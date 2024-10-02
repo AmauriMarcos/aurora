@@ -12,7 +12,8 @@ interface ContentProps {
 const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const Content: React.FC<ContentProps> = ({ weatherData }) => {
-  if (!weatherData || !weatherData.current || !weatherData.daily.length) {
+  // Add safe check for weatherData.daily being an array
+  if (!weatherData || !weatherData.current || !Array.isArray(weatherData.daily) || weatherData.daily.length === 0) {
     return <div>Loading weather data...</div>;
   }
 

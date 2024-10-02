@@ -42,11 +42,9 @@ export default function Home() {
   // Fetch weather data based on lat/lon
   const fetchWeatherData = (latitude: number, longitude: number) => {
     const timeZone = tzlookup(latitude, longitude);
-    // Simulate fetching weather data using latitude and longitude (replace with actual API call)
     console.log(`Fetching weather data for latitude: ${latitude}, longitude: ${longitude}, timeZone: ${timeZone}`);
-
-    // Example: setWeatherData and setWeatherCondition based on the fetched data
-    // Replace the following code with real API response
+  
+    // Simulate fetching weather data using latitude and longitude (replace with actual API call)
     const exampleWeatherData = {
       lat: latitude,
       lon: longitude,
@@ -58,10 +56,15 @@ export default function Home() {
         dt: Date.now(),
       }
     } as WeatherData;
-
-    setWeatherData(exampleWeatherData);
-    setWeatherCondition(exampleWeatherData.current.weather[0].main.toLowerCase());
+  
+    if (exampleWeatherData && exampleWeatherData.current && Array.isArray(exampleWeatherData.current.weather) && exampleWeatherData.current.weather.length > 0) {
+      setWeatherData(exampleWeatherData);
+      setWeatherCondition(exampleWeatherData.current.weather[0].main.toLowerCase());
+    } else {
+      console.error("Invalid weather data");
+    }
   };
+  
 
   // Request location on mount
   useEffect(() => {
