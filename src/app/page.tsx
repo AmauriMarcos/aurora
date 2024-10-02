@@ -26,7 +26,7 @@ export default function Home() {
     if (["thunderstorm", "squall", "tornado"].includes(lowerCaseCondition)) {
       return "storm";
     }
-    if (["clouds", "fog", "mist", "haze", "smoke", "dust", "sand", "ash"].includes(lowerCaseCondition)) {
+    if (["clouds", ].includes(lowerCaseCondition)) {
       return "clouds";
     }
     if (["rain", "drizzle"].includes(lowerCaseCondition)) {
@@ -86,7 +86,7 @@ export default function Home() {
         />
       </aside>
 
-      <main className="bg-transparent p-6 overflow-y-auto">
+      <main className="bg-transparent  overflow-y-auto">
         <Content weatherData={weatherData} />
       </main>
     </div>
