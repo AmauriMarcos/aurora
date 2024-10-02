@@ -2,7 +2,8 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import tzlookup from "tz-lookup";
-import ct from "countries-and-timezones";
+import { getCountryForTimezone } from "countries-and-timezones";  // Import the specific function
+
 import { fetchAirPollution } from "@/app/server/weatherApi";
 import { useQuery } from "@tanstack/react-query";
 import { SkeletonAirPollution } from "./SkeletonAirPollutionSummary";
@@ -82,7 +83,7 @@ const AirPollutionSummary: React.FC<AirPollutionSummaryProps> = ({
 
   const timeZone = tzlookup(latitude, longitude);
 
-  const country = ct.getCountryForTimezone(timeZone);
+  const country = getCountryForTimezone(timeZone);
   const countryName = country ? country.name : "Unknown";
 
   const localDate = new Date();
