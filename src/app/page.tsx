@@ -8,7 +8,7 @@ import { WeatherData } from "./types/weatherApi";
 export default function Home() {
   const [weatherCondition, setWeatherCondition] = useState<string | null>(null);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
-  const [showLocationDialog, setShowLocationDialog] = useState<boolean>(false); // For future use of dialog control
+
 
   // Predefined fallback location (e.g., New York)
   const predefinedLocation = {
@@ -38,8 +38,6 @@ export default function Home() {
 
   // Function to fetch weather data based on lat/lon
   const fetchWeatherData = (latitude: number, longitude: number) => {
-    const timeZone = tzlookup(latitude, longitude);
-
     // Call your weather fetching logic here, e.g.:
     // fetchWeatherAPI(latitude, longitude).then(data => {
     //    setWeatherCondition(data.weather[0].main.toLowerCase());
@@ -109,7 +107,6 @@ export default function Home() {
     backgroundGroup = mapWeatherConditionToGroup(weatherCondition, isNight);
   }
 
-  const defaultBackgroundImage = "/default2.jpg";
   const backgroundImage = backgroundGroup
     ? `linear-gradient(to bottom, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0.7) 100%), url(${weatherBackgrounds[backgroundGroup]})`
     : ``;
