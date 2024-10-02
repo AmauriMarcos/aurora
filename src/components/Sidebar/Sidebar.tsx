@@ -1,24 +1,22 @@
-import Search from "../Search/Search";
 import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import * as Geocode from "react-geocode";
+import Search from "../Search/Search";
 import Temperature from "../Temperature/Temperature";
 import AirPollution from "../AirPollution/AirPollution";
-import { useQuery } from "@tanstack/react-query";
-import { fetchWeatherInfoOneCall } from "@/app/server/weatherApi";
-import * as Geocode from "react-geocode";
 import LittleChart from "../LittleChart/LittleChart";
 import LittleOverview from "../LittleOverview/LittleOverview";
+import { fetchWeatherInfoOneCall } from "@/app/server/weatherApi";
 import { WeatherData } from "@/app/types/weatherApi";
 
 interface SidebarProps {
   setWeatherCondition: (condition: string | null) => void;
-  setWeatherData: (data: WeatherData | null) => void;  // Specify WeatherData type instead of any
+  setWeatherData: (data: WeatherData | null) => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }) => {
   const [inputValue, setInputValue] = useState("");
-  const [location, setLocation] = useState<{ lat: number; lng: number } | null>(
-    null
-  );
+  const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [cityName, setCityName] = useState<string>("");
 
   const predefinedLocation = { lat: 40.7128, lng: -74.0060 }; // Default to New York
@@ -30,7 +28,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
   }
 
   useEffect(() => {
-    Geocode.setKey(process.env.NEXT_PUBLIC_KEY!); 
+    Geocode.setKey(process.env.NEXT_PUBLIC_KEY!);
     Geocode.setLanguage("en");
     Geocode.setRegion("US");
 
@@ -48,8 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
               const addressComponents = response.results[0].address_components as AddressComponent[];
               const cityComponent = addressComponents.find(
                 (component: AddressComponent) =>
-                  component.types.includes("locality") ||
-                  component.types.includes("postal_town")
+                  component.types.includes("locality") || component.types.includes("postal_town")
               );
               if (cityComponent) {
                 setCityName(cityComponent.long_name);
@@ -87,7 +84,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
   });
 
   useEffect(() => {
-    if (data && data.current && data.current.weather.length > 0) {
+    if (data && data.current && Array.isArray(data.current.weather) && data.current.weather.length > 0) {
       setWeatherCondition(data.current.weather[0].main.toLowerCase());
       setWeatherData(data);
     }
@@ -101,12 +98,10 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
         const { lat, lng } = response.results[0].geometry.location;
         setLocation({ lat, lng });
 
-        const addressComponents = response.results[0]
-          .address_components as AddressComponent[];
+        const addressComponents = response.results[0].address_components as AddressComponent[];
         const cityComponent = addressComponents.find(
           (component: AddressComponent) =>
-            component.types.includes("locality") ||
-            component.types.includes("postal_town")
+            component.types.includes("locality") || component.types.includes("postal_town")
         );
         if (cityComponent) {
           setCityName(cityComponent.long_name);
@@ -135,9 +130,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
     <div className="flex flex-col gap-0 py-4 px-8 md:p-4 min-h-screen md:min-h-0 md:h-full">
       <Search
         inputValue={inputValue}
-        setInputValue={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setInputValue(e.target.value)
-        }
+        setInputValue={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
         onSubmit={handleSubmit}
       />
       {data.current && (
