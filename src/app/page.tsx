@@ -9,7 +9,6 @@ export default function Home() {
   const [weatherCondition, setWeatherCondition] = useState<string | null>(null);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
-
   // Predefined fallback location (e.g., New York)
   const predefinedLocation = {
     lat: 40.7128, // New York latitude
@@ -23,20 +22,46 @@ export default function Home() {
         (position) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
-      
+
+          // Here you can fetch weather data using latitude and longitude
+          fetchWeatherData(latitude, longitude);
         },
         (error) => {
           if (error.code === error.PERMISSION_DENIED) {
-     
+            // Use predefined location if permission is denied
+            fetchWeatherData(predefinedLocation.lat, predefinedLocation.lon);
           }
         }
       );
     } else {
-   
+      // Use predefined location if geolocation is not supported
+      fetchWeatherData(predefinedLocation.lat, predefinedLocation.lon);
     }
   };
 
+  // Fetch weather data based on lat/lon
+  const fetchWeatherData = (latitude: number, longitude: number) => {
+    const timeZone = tzlookup(latitude, longitude);
+    // Simulate fetching weather data using latitude and longitude (replace with actual API call)
+    console.log(`Fetching weather data for latitude: ${latitude}, longitude: ${longitude}, timeZone: ${timeZone}`);
 
+    // Example: setWeatherData and setWeatherCondition based on the fetched data
+    // Replace the following code with real API response
+    const exampleWeatherData = {
+      lat: latitude,
+      lon: longitude,
+      timezone: timeZone,
+      current: {
+        weather: [
+          { main: "clear", description: "clear sky", icon: "01d" }
+        ],
+        dt: Date.now(),
+      }
+    } as WeatherData;
+
+    setWeatherData(exampleWeatherData);
+    setWeatherCondition(exampleWeatherData.current.weather[0].main.toLowerCase());
+  };
 
   // Request location on mount
   useEffect(() => {
