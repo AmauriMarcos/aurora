@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateWeatherSummary } from "@/app/server/openAi";
-import { WeatherData } from "@/app/types/weatherApi";
 
 function generatePrompt(pm2_5: number): string {
   return `Write a short, friendly, and professional summary about the air quality with a PM2.5 value of ${pm2_5}. 

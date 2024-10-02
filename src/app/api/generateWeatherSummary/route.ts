@@ -3,7 +3,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateWeatherSummary } from '@/app/server/openAi';
 import { WeatherData } from '@/app/types/weatherApi';
-import ct from 'countries-and-timezones';
 import tzlookup from 'tz-lookup';
 
 // Function to generate the prompt based on weather data
@@ -14,8 +13,6 @@ function generatePrompt(weatherData: WeatherData, cityName: string): string {
   const temperature = current.temp;
   const feelsLike = current.feels_like;
   const humidity = current.humidity;
-  const windSpeed = current.wind_speed;
-  const windDeg = current.wind_deg;
   
   // Get the timezone using latitude and longitude
   const timezone = tzlookup(lat, lon);

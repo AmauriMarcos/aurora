@@ -131,7 +131,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
 
 
   return (
-    <div className="flex flex-col gap-0 py-4 px-8 md:p-4 min-h-screen md:h-full">
+    <div className="flex flex-col gap-0 py-4 px-8 md:p-4 min-h-screen md:min-h-0 md:h-full">
       <Search
         inputValue={inputValue}
         setInputValue={(e: React.ChangeEvent<HTMLInputElement>) =>
