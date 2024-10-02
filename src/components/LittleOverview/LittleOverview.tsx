@@ -51,7 +51,7 @@ const LittleOverview: React.FC<LittleOverviewProps> = ({ weatherData, cityName }
   return (
     <div className="self-auto mt-[2rem] md:mt-[.5rem]">
         <h3 className='my-4 text-[1rem]'>{cityName}</h3>
-      <p className='text-xs'>{summary}</p>
+      <p className='text-xs md:text-[.9rem] leading-[1.4]'>{summary}</p>
     </div>
   );
 };

@@ -65,16 +65,16 @@ export default function Home() {
     backgroundGroup = mapWeatherConditionToGroup(weatherCondition, isNight);
   }
 
+  const defaultBackgroundImage = "/default2.jpg";
   const backgroundImage = backgroundGroup
-    ? weatherBackgrounds[backgroundGroup]
-    : "";
+    ? `linear-gradient(to bottom, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0.7) 100%), url(${weatherBackgrounds[backgroundGroup]})`
+    : `url(${defaultBackgroundImage})`;
+
 
   return (
     <div
       style={{
-        backgroundImage: backgroundImage
-          ? `linear-gradient(to bottom, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0.7) 100%), url(${backgroundImage})`
-          : undefined,
+        backgroundImage: backgroundImage,
         backgroundSize: "cover",
         backgroundPosition: "center",
         color: "rgba(255, 255, 255, 0.9)",
