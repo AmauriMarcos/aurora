@@ -23,27 +23,20 @@ export default function Home() {
         (position) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
-          fetchWeatherData(latitude, longitude);
+      
         },
         (error) => {
           if (error.code === error.PERMISSION_DENIED) {
-            fetchWeatherData(predefinedLocation.lat, predefinedLocation.lon); // Use predefined location if denied
+     
           }
         }
       );
     } else {
-      fetchWeatherData(predefinedLocation.lat, predefinedLocation.lon); // Use predefined location if geolocation is not supported
+   
     }
   };
 
-  // Function to fetch weather data based on lat/lon
-  const fetchWeatherData = (latitude: number, longitude: number) => {
-    // Call your weather fetching logic here, e.g.:
-    // fetchWeatherAPI(latitude, longitude).then(data => {
-    //    setWeatherCondition(data.weather[0].main.toLowerCase());
-    //    setWeatherData(data);
-    // });
-  };
+
 
   // Request location on mount
   useEffect(() => {
