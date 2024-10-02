@@ -79,7 +79,7 @@ const Content: React.FC<ContentProps> = ({ weatherData }) => {
     <div className="flex flex-col h-full overflow-x-hidden ">
       <div className="mt-5 p-6 ml-10">
         <h2 className="uppercase text-[.75rem]">Aurora</h2>
-        <h2 className="uppercase text-[.75rem] translate-y-[-5px]">Forecast</h2>
+        <h2 className="uppercase text-[.75rem] translate-y-[-5px]">Conditions</h2>
       </div>
       <div className="p-6 ml-10 w-full">
         <WeatherForecast main={main} description={description} />
@@ -87,7 +87,7 @@ const Content: React.FC<ContentProps> = ({ weatherData }) => {
       </div>
 
       <div className="relative w-full h-[150px] overflow-hidden ">
-        <div className="absolute w-[90%] ml-14 h-full flex justify-between items-center translate-y-[-1.6rem]">
+        <div className="absolute w-[90%] ml-16 h-full flex justify-between items-center translate-y-[-1.6rem]">
           {dailyWeather.map((day, index) => (
             <div key={index} className="flex flex-col ">
               <p className="text-[white] ">high {day.max}°C</p>
