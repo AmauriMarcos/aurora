@@ -12,7 +12,7 @@ export const fetchWeatherInfoOneCall = async ({ lat, lng }: { lat: number; lng: 
   
 
   export const fetchAirPollution = async ({ lat, lng }: { lat: number; lng: number }) => {
-    const baseUrl = 'http://api.openweathermap.org/data/2.5/air_pollution';
+    const baseUrl = 'https://api.openweathermap.org/data/2.5/air_pollution';
     
     const res = await fetch(`${baseUrl}?lat=${lat}&lon=${lng}&appid=${process.env.NEXT_PUBLIC_API}`);
     
