@@ -33,14 +33,14 @@ const DailyTemperature: React.FC<DailyTemperatureProps> = ({ daily }) => {
   ];
 
   return (
-    <div className="h-[80px] w-[90%] flex items-start ml-16">
+    <div className="h-auto w-[90%] flex items-start ml-16 translate-y-[-2rem]">
       <div className="mt-5 flex w-full flex-col ">
         <div className=" mt-5 flex w-full justify-between">
           {daily.map((day, idx) => (
             <div key={idx} className="flex flex-col items-center relative">
-              <p className="text-[2.5rem] ">{day.temp}°C</p>
+              <p className="text-[2rem] ">{day.temp}°C</p>
 
-              <p className=" text-[2.5rem] font-thin">{day.dayName}</p>
+              <p className=" text-[2rem] font-thin">{day.dayName}</p>
 
               {/* First and Second Bars */}
               <div className="w-full mt-2">

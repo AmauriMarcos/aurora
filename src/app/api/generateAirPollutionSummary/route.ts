@@ -5,8 +5,8 @@ import { WeatherData } from '@/app/types/weatherApi';
 function generatePrompt(pm2_5: number): string {
     
     return `Write a very short, friendly yet professional summary about the air quality with the value ${pm2_5}.
-
-    The summary should be conversational and easy to understand.`;
+    The summary should be conversational and easy to understand. . 
+     Make it max 250 characters`;
   }
 
   export async function POST(request: NextRequest) {

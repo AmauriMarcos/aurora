@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { generateWeatherSummary } from '@/app/server/openAi';
 import { WeatherData } from '@/app/types/weatherApi';
 import ct from 'countries-and-timezones';
+import tzlookup from 'tz-lookup';
 
 // Function to generate the prompt based on weather data
 function generatePrompt(weatherData: WeatherData, cityName: string): string {
@@ -15,14 +16,11 @@ function generatePrompt(weatherData: WeatherData, cityName: string): string {
   const humidity = current.humidity;
   const windSpeed = current.wind_speed;
   const windDeg = current.wind_deg;
+  
+  // Get the timezone using latitude and longitude
+  const timezone = tzlookup(lat, lon);
 
-  const windDirection = getWindDirection(windDeg);
-
-  const timezoneData = ct.getTimezone(cityName);
-
-  const timezone = timezoneData ? timezoneData.name : 'UTC';
-
-  // Get the current time in the local timezone using native Date
+  // Get the current time in the local timezone
   const localTime = new Date(current.dt * 1000).toLocaleString('en-US', {
     timeZone: timezone,
     dateStyle: 'full',
@@ -30,11 +28,10 @@ function generatePrompt(weatherData: WeatherData, cityName: string): string {
   });
 
   return `Write a very short, friendly yet professional weather summary for ${name}.
-  Time zone ${localTime}
+   ${localTime} Don't replicate the time on the message. 
   Current conditions: ${description}.
   Temperature: ${temperature}°C (feels like ${feelsLike}°C).
   Humidity: ${humidity}%.
-  Wind: ${windSpeed} m/s from the ${windDirection}.
 
   The summary should be conversational and easy to understand.`;
 }
