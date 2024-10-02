@@ -4,6 +4,7 @@
 
 body {
   font-family: var(--font-montserrat), var(--font-geist-sans), sans-serif;
+  background-color: rgb(32, 32, 32);
 }
 
 @layer utilities {

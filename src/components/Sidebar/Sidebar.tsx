@@ -21,34 +21,31 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
   );
   const [cityName, setCityName] = useState<string>("");
 
+  const predefinedLocation = { lat: 40.7128, lng: -74.0060 }; // Default to New York
+
   interface AddressComponent {
     long_name: string;
     short_name: string;
     types: string[];
   }
 
-
   useEffect(() => {
     Geocode.setKey(process.env.NEXT_PUBLIC_KEY!); 
     Geocode.setLanguage("en");
     Geocode.setRegion("US");
-
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position: GeolocationPosition) => {
           const { latitude, longitude } = position.coords;
           setLocation({ lat: latitude, lng: longitude });
-          console.log(
-            `User's Location - Latitude: ${latitude}, Longitude: ${longitude}`
-          );
+          console.log(`User's Location - Latitude: ${latitude}, Longitude: ${longitude}`);
 
           try {
             const response = await Geocode.fromLatLng(latitude, longitude);
 
             if (response.results.length > 0) {
-              const addressComponents = response.results[0]
-                .address_components as AddressComponent[];
+              const addressComponents = response.results[0].address_components as AddressComponent[];
               const cityComponent = addressComponents.find(
                 (component: AddressComponent) =>
                   component.types.includes("locality") ||
@@ -69,10 +66,14 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
         },
         (error) => {
           console.error("Error getting location:", error);
+          setLocation(predefinedLocation); // Use predefined location if denied or error
+          setCityName("New York"); // Set the default city name
         }
       );
     } else {
       console.error("Geolocation is not supported by this browser.");
+      setLocation(predefinedLocation); // Fallback if geolocation is not supported
+      setCityName("New York"); // Set the default city name
     }
   }, []);
 
@@ -129,7 +130,6 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
   if (isError || !data) {
     return <div>Error fetching weather data</div>;
   }
-
 
   return (
     <div className="flex flex-col gap-0 py-4 px-8 md:p-4 min-h-screen md:min-h-0 md:h-full">

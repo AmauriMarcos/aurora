@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Content from "@/components/Content/Content";
 import tzlookup from "tz-lookup";
@@ -8,7 +8,51 @@ import { WeatherData } from "./types/weatherApi";
 export default function Home() {
   const [weatherCondition, setWeatherCondition] = useState<string | null>(null);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [showLocationDialog, setShowLocationDialog] = useState<boolean>(false); // For future use of dialog control
 
+  // Predefined fallback location (e.g., New York)
+  const predefinedLocation = {
+    lat: 40.7128, // New York latitude
+    lon: -74.0060, // New York longitude
+  };
+
+  // Function to request user location or fallback to predefined location
+  const requestLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          fetchWeatherData(latitude, longitude);
+        },
+        (error) => {
+          if (error.code === error.PERMISSION_DENIED) {
+            fetchWeatherData(predefinedLocation.lat, predefinedLocation.lon); // Use predefined location if denied
+          }
+        }
+      );
+    } else {
+      fetchWeatherData(predefinedLocation.lat, predefinedLocation.lon); // Use predefined location if geolocation is not supported
+    }
+  };
+
+  // Function to fetch weather data based on lat/lon
+  const fetchWeatherData = (latitude: number, longitude: number) => {
+    const timeZone = tzlookup(latitude, longitude);
+
+    // Call your weather fetching logic here, e.g.:
+    // fetchWeatherAPI(latitude, longitude).then(data => {
+    //    setWeatherCondition(data.weather[0].main.toLowerCase());
+    //    setWeatherData(data);
+    // });
+  };
+
+  // Request location on mount
+  useEffect(() => {
+    requestLocation();
+  }, []);
+
+  // Define background based on weather condition
   const weatherBackgrounds: Record<string, string> = {
     storm: "/storm1.jpg",
     clouds: "/cloudy2.jpg",
@@ -16,7 +60,7 @@ export default function Home() {
     clear: "/sunny16.jpg",
     snow: "/snow2.jpg",
     misc: "/neutral.jpg",
-    night: "/night2.jpg", 
+    night: "/night2.jpg",
   };
 
   const mapWeatherConditionToGroup = (
@@ -68,8 +112,7 @@ export default function Home() {
   const defaultBackgroundImage = "/default2.jpg";
   const backgroundImage = backgroundGroup
     ? `linear-gradient(to bottom, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0.7) 100%), url(${weatherBackgrounds[backgroundGroup]})`
-    : `url(${defaultBackgroundImage})`;
-
+    : ``;
 
   return (
     <div
@@ -82,7 +125,7 @@ export default function Home() {
       }}
       className="md:grid md:grid-cols-[280px_1fr]"
     >
-      <aside className=" p-4 border-r border-solid border-white/10 md:rounded-r-2xl bg-white/10 backdrop-blur-none  md:backdrop-blur-md shadow-md border-zinc-400">
+      <aside className="p-4 border-r border-solid border-white/10 md:rounded-r-2xl bg-white/10 backdrop-blur-none md:backdrop-blur-md shadow-md border-zinc-400">
         <Sidebar
           setWeatherCondition={setWeatherCondition}
           setWeatherData={setWeatherData}
@@ -90,7 +133,7 @@ export default function Home() {
       </aside>
 
       <main className="hidden md:block bg-transparent overflow-y-auto">
-       {weatherData && <Content weatherData={weatherData} />}
+        {weatherData && <Content weatherData={weatherData} />}
       </main>
     </div>
   );
