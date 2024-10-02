@@ -33,15 +33,7 @@ function generatePrompt(weatherData: WeatherData, cityName: string): string {
   The summary should be conversational and easy to understand.`;
 }
 
-// Helper function to convert wind degrees to compass direction
-function getWindDirection(deg: number): string {
-  const directions = [
-    'North', 'Northeast', 'East', 'Southeast',
-    'South', 'Southwest', 'West', 'Northwest',
-  ];
-  const index = Math.round((deg % 360) / 45) % 8;
-  return directions[index];
-}
+
 
 // API Route Handler
 export async function POST(request: NextRequest) {

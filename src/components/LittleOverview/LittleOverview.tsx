@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { SkeletonDemo } from './SkeletonOverview';
+import { WeatherData } from '@/app/types/weatherApi';
 
 interface LittleOverviewProps {
-  weatherData: any;
+  weatherData: WeatherData ;
   cityName: string 
 }
 

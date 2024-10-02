@@ -3,10 +3,11 @@ import { useState } from "react";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Content from "@/components/Content/Content";
 import tzlookup from "tz-lookup";
+import { WeatherData } from "./types/weatherApi";
 
 export default function Home() {
   const [weatherCondition, setWeatherCondition] = useState<string | null>(null);
-  const [weatherData, setWeatherData] = useState<any>(null);
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
   const weatherBackgrounds: Record<string, string> = {
     storm: "/storm1.jpg",
@@ -89,7 +90,7 @@ export default function Home() {
       </aside>
 
       <main className="hidden md:block bg-transparent overflow-y-auto">
-        <Content weatherData={weatherData} />
+       {weatherData && <Content weatherData={weatherData} />}
       </main>
     </div>
   );

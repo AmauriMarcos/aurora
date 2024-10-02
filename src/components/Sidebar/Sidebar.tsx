@@ -7,10 +7,11 @@ import { fetchWeatherInfoOneCall } from "@/app/server/weatherApi";
 import * as Geocode from "react-geocode";
 import LittleChart from "../LittleChart/LittleChart";
 import LittleOverview from "../LittleOverview/LittleOverview";
+import { WeatherData } from "@/app/types/weatherApi";
 
 interface SidebarProps {
   setWeatherCondition: (condition: string | null) => void;
-  setWeatherData: (data: any) => void; 
+  setWeatherData: (data: WeatherData | null) => void;  // Specify WeatherData type instead of any
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }) => {

@@ -25,6 +25,16 @@ interface TemperatureData {
   temperature: number; 
 }
 
+interface TemperatureData {
+  time: number;
+  temperature: number;
+}
+
+interface HourlyData {
+  dt: number;
+  temp: number;
+}
+
 const TemperatureChart: React.FC<{ data: TemperatureData[] }> = ({ data }) => {
   return (
     <LineChart
@@ -108,9 +118,9 @@ const LittleChart: React.FC<LittleChartProps> = ({ location }) => {
     return <div>Error fetching temperature data</div>;
   }
 
-  const temperatureData: TemperatureData[] = data.hourly.map((hour: any) => ({
+  const temperatureData: TemperatureData[] = data.hourly.map((hour: HourlyData) => ({
     time: (hour.dt + data.timezone_offset) * 1000,
-    temperature: hour.temp, 
+    temperature: hour.temp,
   }));
 
   return (
