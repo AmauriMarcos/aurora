@@ -21,8 +21,8 @@ interface LittleChartProps {
 }
 
 interface TemperatureData {
-  time: number; // Timestamp in milliseconds
-  temperature: number; // Temperature in Celsius
+  time: number; 
+  temperature: number; 
 }
 
 const TemperatureChart: React.FC<{ data: TemperatureData[] }> = ({ data }) => {
@@ -31,7 +31,7 @@ const TemperatureChart: React.FC<{ data: TemperatureData[] }> = ({ data }) => {
       width={280}
       height={200}
       data={data}
-      className="m-auto w-full translate-x-[-3.8rem] bg-transparent"
+      className="m-auto w-full translate-x-[-2rem] md:translate-x-[-3.8rem] bg-transparent"
       style={{ borderRadius: "8px", overflow: "hidden" }}
     >
       <CartesianGrid strokeDasharray="3 3" stroke="transparent" />
@@ -51,15 +51,15 @@ const TemperatureChart: React.FC<{ data: TemperatureData[] }> = ({ data }) => {
       />
       <Tooltip
         contentStyle={{
-          backgroundColor: "rgba(51, 51, 51, 0.8)", // Semi-transparent background
+          backgroundColor: "rgba(51, 51, 51, 0.8)", 
           border: "none",
-          padding: "4px", // Reduce padding
-          borderRadius: "4px", // Slightly round corners
+          padding: "4px", 
+          borderRadius: "4px", 
         }}
         itemStyle={{
           color: "#fff",
-          fontSize: "10px", // Reduce font size
-          margin: 0, // Remove default margins
+          fontSize: "10px", 
+          margin: 0,
         }}
         labelStyle={{
           color: "#fff",
@@ -108,14 +108,13 @@ const LittleChart: React.FC<LittleChartProps> = ({ location }) => {
     return <div>Error fetching temperature data</div>;
   }
 
-  // Transform the data
   const temperatureData: TemperatureData[] = data.hourly.map((hour: any) => ({
     time: (hour.dt + data.timezone_offset) * 1000,
-    temperature: hour.temp, // Already in Celsius
+    temperature: hour.temp, 
   }));
 
   return (
-    <div className="w-full m-auto text-white mt-[2rem] mb-0">
+    <div className="w-full m-auto text-white mt-[2.5rem] md:mt-[2rem] mb-0">
       <TemperatureChart data={temperatureData} />
     </div>
   );

@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 interface Daily {
   dayName: string;
@@ -42,7 +41,6 @@ const DailyTemperature: React.FC<DailyTemperatureProps> = ({ daily }) => {
 
               <p className=" text-[2rem] font-thin">{day.dayName}</p>
 
-              {/* First and Second Bars */}
               <div className="w-full mt-2">
                 <span
                   className="block rounded-md h-1 mb-1"

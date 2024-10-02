@@ -20,43 +20,19 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
   );
   const [cityName, setCityName] = useState<string>("");
 
-  // Define the AddressComponent interface
   interface AddressComponent {
     long_name: string;
     short_name: string;
     types: string[];
   }
 
-  // Function to get country code from latitude and longitude
-  async function getCountryCode(
-    latitude: number,
-    longitude: number
-  ): Promise<string | null> {
-    try {
-      const response = await Geocode.fromLatLng(latitude, longitude);
-      if (response.results.length > 0) {
-        const addressComponents = response.results[0]
-          .address_components as AddressComponent[];
-        const countryComponent = addressComponents.find(
-          (component: AddressComponent) => component.types.includes("country")
-        );
-        if (countryComponent) {
-          return countryComponent.short_name.toLowerCase(); // Returns country code like 'rs', 'us', etc.
-        }
-      }
-    } catch (error) {
-      console.error("Error getting country code:", error);
-    }
-    return null;
-  }
 
-  // Set up Geocode API key on component mount
   useEffect(() => {
-    Geocode.setKey(process.env.NEXT_PUBLIC_KEY!); // Use your API key
+    Geocode.setKey(process.env.NEXT_PUBLIC_KEY!); 
     Geocode.setLanguage("en");
     Geocode.setRegion("US");
 
-    // Get user current location
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position: GeolocationPosition) => {
@@ -66,7 +42,6 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
             `User's Location - Latitude: ${latitude}, Longitude: ${longitude}`
           );
 
-          // Reverse geocode to get city name
           try {
             const response = await Geocode.fromLatLng(latitude, longitude);
 
@@ -124,7 +99,6 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
         const { lat, lng } = response.results[0].geometry.location;
         setLocation({ lat, lng });
 
-        // Update city name from the search input
         const addressComponents = response.results[0]
           .address_components as AddressComponent[];
         const cityComponent = addressComponents.find(
@@ -157,7 +131,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
 
 
   return (
-    <div className="flex flex-col gap-0 p-4 h-full">
+    <div className="flex flex-col gap-0 py-4 px-8 md:p-4 min-h-screen md:h-full">
       <Search
         inputValue={inputValue}
         setInputValue={(e: React.ChangeEvent<HTMLInputElement>) =>

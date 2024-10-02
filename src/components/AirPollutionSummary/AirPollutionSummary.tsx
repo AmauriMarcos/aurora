@@ -71,7 +71,6 @@ const AirPollutionSummary: React.FC<AirPollutionSummaryProps> = ({
     }
   }, [pm25Value]);
 
-  // Now, after all hooks are called, handle conditional rendering
 
   if (isLoading || loading) {
     return <SkeletonAirPollution/>;
@@ -81,19 +80,13 @@ const AirPollutionSummary: React.FC<AirPollutionSummaryProps> = ({
     return <div>Error fetching air pollution data</div>;
   }
 
-  // Proceed with the rest of your component
-
-  // Get the IANA time zone identifier
   const timeZone = tzlookup(latitude, longitude);
 
-  // Get the country information based on the time zone
   const country = ct.getCountryForTimezone(timeZone);
   const countryName = country ? country.name : "Unknown";
 
-  // Get the current date and time in the specified time zone
   const localDate = new Date();
 
-  // Format date and time using the time zone
   const dateOptions: Intl.DateTimeFormatOptions = {
     timeZone,
     weekday: "long",
@@ -112,7 +105,6 @@ const AirPollutionSummary: React.FC<AirPollutionSummaryProps> = ({
   const formattedTime = localDate.toLocaleTimeString("en-US", timeOptions);
   const dateTimeString = `${formattedDate}, ${formattedTime}`;
 
-  // Construct icon URL
   const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
 
   return (

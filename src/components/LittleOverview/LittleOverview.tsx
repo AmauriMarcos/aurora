@@ -3,7 +3,7 @@ import { SkeletonDemo } from './SkeletonOverview';
 
 interface LittleOverviewProps {
   weatherData: any;
-  cityName: string // Replace 'any' with your WeatherData interface if available
+  cityName: string 
 }
 
 const LittleOverview: React.FC<LittleOverviewProps> = ({ weatherData, cityName }) => {
@@ -48,7 +48,7 @@ const LittleOverview: React.FC<LittleOverviewProps> = ({ weatherData, cityName }
   }
 
   return (
-    <div className="self-auto">
+    <div className="self-auto mt-[2rem] md:mt-[.5rem]">
         <h3 className='my-4 text-[1rem]'>{cityName}</h3>
       <p className='text-xs'>{summary}</p>
     </div>

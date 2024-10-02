@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchAirPollution } from "@/app/server/weatherApi";
 
@@ -63,12 +63,11 @@ const AirPollution: React.FC<AirPollutionProps> = ({ location }) => {
     { id: 5, category: "Very Poor", rank: ">= 75", color: "#E05252", classification: 'dangerous' },
   ];
 
-  // Define the type for the grouped PM range
+
   type GroupedPMRange = {
     [key: string]: PMRange[];
   };
 
-  // Group PM ranges by classification
   const groupedPmRange: GroupedPMRange = pmRange.reduce((acc: GroupedPMRange, pm) => {
     acc[pm.classification] = acc[pm.classification] || [];
     acc[pm.classification].push(pm);
@@ -79,18 +78,18 @@ const AirPollution: React.FC<AirPollutionProps> = ({ location }) => {
 
 
   const getColorForPM25 = (pm2_5: number | undefined) => {
-    if (!pm2_5) return "#F8DD82"; // Default color
+    if (!pm2_5) return "#F8DD82"; 
     switch (true) {
       case pm2_5 <= 10:
-        return "#F8DD82"; // Good
+        return "#F8DD82"; 
       case pm2_5 <= 25:
-        return "#E6CA6D"; // Fair
+        return "#E6CA6D"; 
       case pm2_5 <= 50:
-        return "#D7B64F"; // Moderate
+        return "#D7B64F"; 
       case pm2_5 <= 75:
-        return "#D48744"; // Poor
+        return "#D48744"; 
       default:
-        return "#E05252"; // Very Poor
+        return "#E05252"; 
     }
   };
 
@@ -115,7 +114,7 @@ const AirPollution: React.FC<AirPollutionProps> = ({ location }) => {
           <h3 className="text-[1.2rem]">{pm25Value !== undefined ? pm25Value : "N/A"}</h3>
         </div>
       </div>
-      <div className="mt-6 flex justify-between">
+      <div className="mt-6 flex  justify-between">
         {Object.keys(groupedPmRange).map((classification) => (
           <div className="flex flex-col gap-2" key={classification}>
             <h6 className="text-xs">{classification.charAt(0).toUpperCase() + classification.slice(1)}</h6>

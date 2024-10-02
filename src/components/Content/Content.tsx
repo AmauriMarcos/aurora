@@ -52,19 +52,16 @@ const Content: React.FC<ContentProps> = ({ weatherData }) => {
   const main = weatherData.current.weather[0].main;
   const description = weatherData.current.weather[0].description;
   const icon = weatherData.current.weather[0].icon;
-  const dt = weatherData.current.dt;
-  const timezone_offset = weatherData.timezone_offset;
   const lat = weatherData.lat;
   const lon = weatherData.lon;
 
-  // Process daily weather data
   const dailyWeather = weatherData.daily
     .slice(1, 7)
     .map((day: any, idx: number) => {
       const dayOfTheWeek = new Date(
         (day.dt + weatherData.timezone_offset) * 1000
-      ); // Adjust for timezone offset
-      const dayName = weekday[dayOfTheWeek.getUTCDay()]; // Get day name based on UTC
+      ); 
+      const dayName = weekday[dayOfTheWeek.getUTCDay()]; 
 
       return {
         dayName,

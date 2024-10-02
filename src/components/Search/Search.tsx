@@ -1,5 +1,3 @@
-// Search.tsx
-
 import React from "react";
 import { FaTemperatureHalf as TemperatureIcon } from "react-icons/fa6";
 import { CiSearch as SearchIcon } from "react-icons/ci";
@@ -21,7 +19,7 @@ const Search: React.FC<SearchProps> = ({ inputValue, setInputValue, onSubmit }) 
       <Input
         onChange={setInputValue}
         type="text"
-        placeholder="Tokyo, Japan"
+        placeholder="City"
         className="text-zinc-300 placeholder:text-zinc-300"
         value={inputValue}
       />

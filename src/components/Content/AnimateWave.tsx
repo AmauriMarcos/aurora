@@ -5,27 +5,22 @@ interface AnimateProps {
 }
 
 const AnimatedWave: React.FC<AnimateProps> = ({ lat }) => {
-  // State for controlling SVG width
   const [svgWidth, setSvgWidth] = useState("0%");
 
-  // Trigger the animation when the component mounts or lat changes
   useEffect(() => {
-    // Reset svgWidth to 0% immediately to create a fresh start
     setSvgWidth("0%");
-    
-    // Then set it to 100% with a delay for animation
     const timeout = setTimeout(() => {
       setSvgWidth("100%");
-    }, 100); // Delay to start the animation
+    }, 100); 
 
     return () => clearTimeout(timeout);
-  }, [lat]); // The animation will re-trigger whenever lat changes
+  }, [lat]); 
 
   return (
     <div className="relative w-full h-[150px] overflow-hidden">
       <svg
         className={`absolute bottom-0 h-full translate-y-[2rem] transition-all duration-1000 ease-out`}
-        style={{ width: svgWidth }} // Bind the dynamic width state here
+        style={{ width: svgWidth }} 
         viewBox="0 0 1440 150"
         preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
