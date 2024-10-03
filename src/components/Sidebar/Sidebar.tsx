@@ -124,7 +124,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
   }
 
   if (isError || !data) {
-    return <div>Error fetching weather data</div>;
+    return <SkeletonSidebar/>;
   }
 
   return (
