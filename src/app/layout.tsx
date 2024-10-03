@@ -23,7 +23,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Aurora Conditions",
+  title: "Aurora Cast",
   description: "Stay updated with real-time weather conditions, forecasts, and air quality insights.",
   icons: {
     icon: '/favicon.ico', 

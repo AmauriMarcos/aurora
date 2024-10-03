@@ -45,7 +45,13 @@ const Content: React.FC<ContentProps> = ({ weatherData }) => {
     <div className="flex flex-col h-full overflow-x-hidden gap-[2rem]">
       <div className="mt-5 p-6 ml-10">
         <h2 className="uppercase text-[.75rem]">Aurora</h2>
-        <h2 className="uppercase text-[.75rem] translate-y-[-5px]">Conditions</h2>
+        <div className="flex w-[53px] justify-between">
+        <h2 className="uppercase text-[.75rem] translate-y-[-5px]">c</h2>
+        <h2 className="uppercase text-[.75rem] translate-y-[-5px]">a</h2>
+        <h2 className="uppercase text-[.75rem] translate-y-[-5px]">s</h2>
+        <h2 className="uppercase text-[.75rem] translate-y-[-5px]">t</h2>
+        </div>
+       
       </div>
       <div className="p-6 ml-10 w-full">
         <WeatherForecast main={main} description={description} />
