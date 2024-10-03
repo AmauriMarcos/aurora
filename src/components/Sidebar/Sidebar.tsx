@@ -8,6 +8,7 @@ import LittleChart from "../LittleChart/LittleChart";
 import LittleOverview from "../LittleOverview/LittleOverview";
 import { fetchWeatherInfoOneCall } from "@/app/server/weatherApi";
 import { WeatherData } from "@/app/types/weatherApi";
+import { SkeletonSidebar } from "./SkeletonSideBar";
 
 interface SidebarProps {
   setWeatherCondition: (condition: string | null) => void;
@@ -119,7 +120,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <SkeletonSidebar/>;
   }
 
   if (isError || !data) {
