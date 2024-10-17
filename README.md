@@ -4,17 +4,14 @@
 
 ## About the project
 
-That's a great project for people who's trying to improve their design skills. 
-You can easily integrate your own database and manage the users and products from there. 
+This AI-powered app provides real-time weather summaries by integrating the OpenWeather and OpenAI APIs. It allows users to search for weather information based on their location using the Google Geocode API. The app offers accurate and user-friendly weather updates, making it easy to check the current conditions wherever you are!
 
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Google Geocode API](https://img.shields.io/badge/Google_Geocode_API-4285F4?style=for-the-badge&logo=google&logoColor=white)
+![OpenWeather API](https://img.shields.io/badge/OpenWeather-FFBA00?style=for-the-badge&logo=OpenWeatherMap&logoColor=white)
 
-![npm](https://img.shields.io/npm/v/react?color=%23007ec6&label=React&logo=React&style=for-the-badge)
-![npm](https://img.shields.io/npm/v/react-redux?color=%23007ec6&label=Redux&logo=Redux&style=for-the-badge)
-![npm](https://img.shields.io/npm/v/react-router-dom?label=React%20Router%20Dom&logo=React%20Router&style=for-the-badge)
-![GitHub watchers](https://img.shields.io/github/watchers/AmauriMarcos/React-Admin?logo=Github&style=for-the-badge)
-![GitHub Repo stars](https://img.shields.io/github/stars/AmauriMarcos/React-Admin?logo=Github&style=for-the-badge)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/AmauriMarcos/React-Admin/main?color=%23007EC6&logo=Git&style=for-the-badge)
-![GitHub repo size](https://img.shields.io/github/repo-size/AmauriMarcos/React-Admin?logo=github&style=for-the-badge)
 
 <p align="center" width="100%"> 
   <img src="public/aurorav1.png" width="700px"/>
