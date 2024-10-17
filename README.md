@@ -6,6 +6,8 @@
 
 This AI-powered app provides real-time weather summaries by integrating the OpenWeather and OpenAI APIs. It allows users to search for weather information based on their location using the Google Geocode API. The app offers accurate and user-friendly weather updates, making it easy to check the current conditions wherever you are!
 
+You can visit the live site here: [Aurora Cast](https://aurora-cast.vercel.app/)
+
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
