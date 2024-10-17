@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center" width="100%">
+  <img src="public/aurora-banner.png"/>
+</p>
 
-## Getting Started
+## About the project
 
-First, run the development server:
+That's a great project for people who's trying to improve their design skills. 
+You can easily integrate your own database and manage the users and products from there. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![npm](https://img.shields.io/npm/v/react?color=%23007ec6&label=React&logo=React&style=for-the-badge)
+![npm](https://img.shields.io/npm/v/react-redux?color=%23007ec6&label=Redux&logo=Redux&style=for-the-badge)
+![npm](https://img.shields.io/npm/v/react-router-dom?label=React%20Router%20Dom&logo=React%20Router&style=for-the-badge)
+![GitHub watchers](https://img.shields.io/github/watchers/AmauriMarcos/React-Admin?logo=Github&style=for-the-badge)
+![GitHub Repo stars](https://img.shields.io/github/stars/AmauriMarcos/React-Admin?logo=Github&style=for-the-badge)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/AmauriMarcos/React-Admin/main?color=%23007EC6&logo=Git&style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/AmauriMarcos/React-Admin?logo=github&style=for-the-badge)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<p align="center" width="100%"> 
+  <img src="public/aurorav1.png" width="700px"/>
+</p>
+<p align="center" width="100%"> 
+  <img src="public/aurorav2.png" width="700px"/>
+</p>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Installation
 
-## Learn More
+1. Clone the repo
 
-To learn more about Next.js, take a look at the following resources:
+  ```
+    https://github.com/AmauriMarcos/aurora.git
+  ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Install NPM packages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```
+   npm install
+   ```
+   
+3. Go to the project folder
 
-## Deploy on Vercel
+   ```
+    cd aurora
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Start the project
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```
+   npm run dev
+   ```
