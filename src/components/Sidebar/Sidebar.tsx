@@ -20,7 +20,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [cityName, setCityName] = useState<string>("");
 
-  const predefinedLocation = { lat: 40.7128, lng: -74.0060 }; // Default to New York
+  const predefinedLocation = { lat: 40.7128, lng: -74.0060 }; 
 
   interface AddressComponent {
     long_name: string;
