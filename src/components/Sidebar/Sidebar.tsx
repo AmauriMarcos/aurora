@@ -19,6 +19,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
   const [inputValue, setInputValue] = useState("");
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [cityName, setCityName] = useState<string>("");
+  const [apiResponse, setApiResponse] = useState<object | null>(null);
 
   const predefinedLocation = { lat: 40.7128, lng: -74.0060 }; 
 
@@ -28,10 +29,28 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
     types: string[];
   }
 
+
+  useEffect(() => {
+    fetch('https://ipapi.co/json/')
+      .then(res => res.json())
+      .then(response => {
+        console.log("Country is:", response.country_name);
+        // Optionally, store the country information in state
+        // setCountryName(response.country_name);
+        // setCountryCode(response.country);
+      })
+      .catch(error => {
+        console.log('Request failed:', error);
+      });
+  }, []);
+  
+  
+
+
   useEffect(() => {
     Geocode.setKey(process.env.NEXT_PUBLIC_KEY!);
     Geocode.setLanguage("en");
-    Geocode.setRegion("US");
+    Geocode.setRegion("");
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -95,10 +114,11 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
     e.preventDefault();
     try {
       const response = await Geocode.fromAddress(inputValue);
+      
       if (response.results.length > 0) {
         const { lat, lng } = response.results[0].geometry.location;
         setLocation({ lat, lng });
-
+        setApiResponse(response);
         const addressComponents = response.results[0].address_components as AddressComponent[];
         const cityComponent = addressComponents.find(
           (component: AddressComponent) =>
@@ -112,10 +132,12 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
           setInputValue(inputValue);
         }
       } else {
+        setApiResponse(null);
         console.error("No results found for the provided address.");
       }
     } catch (error) {
       console.error("Error fetching location:", error);
+      setApiResponse(null);
     }
   };
 
@@ -133,6 +155,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setWeatherCondition, setWeatherData }
         inputValue={inputValue}
         setInputValue={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
         onSubmit={handleSubmit}
+        apiResponse={apiResponse}
       />
       {data.current && (
         <Temperature
